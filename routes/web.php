@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
 Route::pattern('id', '[0-9]+');
 Route::pattern('uuid', '[0-9a-fA-F]+');
@@ -16,12 +17,6 @@ Route::pattern('uuid', '[0-9a-fA-F]+');
 |
 */
 
-Route::get('/', function () {
-    echo 'Selamat Datang';
-});
-Route::get('/about', function () {
-    echo 'NIM : 2141720025 <br> Nama : Agus Prayogi';
-});
-Route::get('/articles/{id}', function ($id) {
-    echo 'Halaman artikel dengan ID ' . $id;
-});
+Route::get('/', [PageController::class, 'index']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/articles/{id}', [PageController::class, 'articles']);
