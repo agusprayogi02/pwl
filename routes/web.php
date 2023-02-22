@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::pattern('id', '[0-9]+');
+Route::pattern('uuid', '[0-9a-fA-F]+');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    echo 'Selamat Datang';
+});
+Route::get('/about', function () {
+    echo 'NIM : 2141720025 <br> Nama : Agus Prayogi';
+});
+Route::get('/articles/{id}', function ($id) {
+    echo 'Halaman artikel dengan ID ' . $id;
 });
