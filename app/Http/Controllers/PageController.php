@@ -2,15 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use SebastianBergmann\Type\VoidType;
+
 class PageController extends Controller
 {
     public function index()
     {
-        echo 'Selamat Datang Di Website Saya';
+        return view('home');
     }
 
-    public function news($news = null)
+    public function news($news = '')
     {
-        echo 'Halaman News ' . $news;
+        return view('news', ['news' => $news]);
+    }
+
+    public function program()
+    {
+        return view('program');
+    }
+
+    public function aboutUs()
+    {
+        return view('about-us');
+    }
+
+    public function contactUs()
+    {
+        return view('contact-us');
     }
 }
