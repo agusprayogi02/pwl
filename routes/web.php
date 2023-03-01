@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\KuliahController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 
 Route::pattern('id', '[0-9]+');
@@ -21,23 +23,28 @@ Route::pattern('uuid', '[0-9a-fA-F]+');
 |
 */
 
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('home');
+Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
+Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 
-Route::prefix('product')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-});
 
-Route::get('/news/{news?}', [PageController::class, 'news']);
+// Route::get('/', [PageController::class, 'index']);
 
-Route::prefix('program')->group(function () {
-    Route::get('/', 'PageController@program');
-});
+// Route::prefix('product')->group(function () {
+//     Route::get('/', [ProductController::class, 'index']);
+// });
 
-Route::get('/about-us', [PageController::class, 'aboutUs']);
+// Route::get('/news/{news?}', [PageController::class, 'news']);
 
-Route::resource('/contact-us', PageController::class)->only([
-    'contactUs'
-]);
+// Route::prefix('program')->group(function () {
+//     Route::get('/', 'PageController@program');
+// });
+
+// Route::get('/about-us', [PageController::class, 'aboutUs']);
+
+// Route::resource('/contact-us', PageController::class)->only([
+//     'contactUs'
+// ]);
 
 // Route::prefix('category')->group(function () {
 //     Route::get('/marbel-edu-games', [CategoryController::class, 'eduGames']);
