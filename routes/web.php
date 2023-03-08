@@ -1,13 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\KuliahController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProgramController;
 
 Route::pattern('id', '[0-9]+');
 Route::pattern('uuid', '[0-9a-fA-F]+');
@@ -26,6 +23,8 @@ Route::pattern('uuid', '[0-9a-fA-F]+');
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
 Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
+
+Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
 
 
 // Route::get('/', [PageController::class, 'index']);
