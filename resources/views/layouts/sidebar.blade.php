@@ -68,6 +68,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('hobi') }}" class="nav-link {{ request()->routeIs('hobi') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-thumbs-up"></i>
+            <p>
+              Data Hobi
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

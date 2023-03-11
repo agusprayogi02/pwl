@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Artikel::factory(100)->create();
+        $this->call([
+            HobiSeeder::class,
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

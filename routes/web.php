@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HobiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KuliahController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,7 @@ Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profil
 Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 
 Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
+Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
 
 
 // Route::get('/', [PageController::class, 'index']);

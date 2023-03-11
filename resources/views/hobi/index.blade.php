@@ -8,19 +8,18 @@
 @endpush
 
 @section('content')
-
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Articles</h1>
+          <h1>List Hobi</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Articles</li>
+            <li class="breadcrumb-item active">Hobi</li>
           </ol>
         </div>
       </div>
@@ -29,33 +28,26 @@
 
   <!-- Main content -->
   <section class="content">
-
     <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">List Articles</h3>
-      </div>
       <!-- /.card-header -->
       <div class="card-body">
         <table id="tabelku" class="table table-bordered">
           <thead>
             <tr>
               <th style="width: 10px">No</th>
-              <th>Judul</th>
-              <th>Slug</th>
-              <th>Isi</th>
-              <th>Penulis</th>
-              <th>Tgl dibuat</th>
+              <th>Hobi</th>
+              <th>Deskripsi</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($data as $item)
+            @php
+            $i = 1;
+            @endphp
+            @foreach ($hobbies as $item)
             <tr>
-              <td>{{ $item->id_artikel}}</td>
-              <td>{{ $item->judul}}</td>
-              <td>{{ $item->slug}}</td>
-              <td>{{ $item->isi}}</td>
-              <td>{{ $item->penulis}}</td>
-              <td>{{ $item->created_at}}</td>
+              <td>{{ $i++ }}</td>
+              <td>{{ $item->nama}}</td>
+              <td>{{ $item->deskripsi}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -63,12 +55,11 @@
       </div>
     </div>
     <!-- /.card -->
-
   </section>
-  <!-- /.content -->
 </div>
 @endsection
 
+@push('custom_js')
 @push('custom_js')
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -86,7 +77,8 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $('#tabelku').DataTable();
-  });
+        $('#tabelku').DataTable();
+      });
 </script>
+@endpush
 @endpush
