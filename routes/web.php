@@ -6,6 +6,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\HobiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KuliahController;
+use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\ProfileController;
 
 Route::pattern('id', '[0-9]+');
@@ -29,6 +30,7 @@ Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
 Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
 Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
+Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
 
 
 // Route::get('/', [PageController::class, 'index']);

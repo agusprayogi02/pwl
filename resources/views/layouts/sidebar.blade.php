@@ -84,6 +84,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('matkul') }}" class="nav-link {{ request()->routeIs('matkul') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-laptop-code"></i>
+            <p>
+              Mata Kuliah
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

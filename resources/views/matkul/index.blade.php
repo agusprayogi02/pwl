@@ -15,12 +15,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Keluarga</h1>
+          <h1>Mata Kuliah</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Keluarga</li>
+            <li class="breadcrumb-item active">Mata Kuliah</li>
           </ol>
         </div>
       </div>
@@ -32,39 +32,30 @@
 
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">List Keluarga</h3>
+        <h3 class="card-title">List Mata Kuliah</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <table id="tabelku" class="table table-bordered">
           <thead>
             <tr>
-              <th style="width: 10px">No</th>
-              <th>Nama</th>
-              <th>Tempat, Tgl Lahir</th>
-              <th>No Telp</th>
-              <th>Alamat</th>
-              <th>Agama</th>
-              <th>Pekerjaan</th>
-              <th>Pendidikan</th>
-              <th>Jenis Kelamin</th>
+              <th style="width: 20px">Kode</th>
+              <th>Mata kuliah</th>
+              <th>Jumlah SKS</th>
+              <th>Semester</th>
+              <th>Dosen Pengajar</th>
+              <th>Deskripsi</th>
             </tr>
           </thead>
           <tbody>
-            @php
-            $i = 1;
-            @endphp
-            @foreach ($families as $item)
+            @foreach ($matkuls as $item)
             <tr>
-              <td>{{ $i++ }}</td>
+              <td>{{ $item->kode_matkul}}</td>
               <td>{{ $item->nama}}</td>
-              <td>{{ $item->tempat_lahir}}, {{$item->tanggal_lahir}}</td>
-              <td>{{ $item->phone}}</td>
-              <td>{{ $item->alamat}}</td>
-              <td>{{ $item->agama}}</td>
-              <td>{{ $item->pekerjaan}}</td>
-              <td>{{ $item->pendidikan}}</td>
-              <td>{{ $item->jenis_kelamin == 'L' ? 'Laki-Laki': 'Perempuan'}}</td>
+              <td>{{ $item->sks}}</td>
+              <td>{{ $item->semester}}</td>
+              <td>{{ $item->dosen}}</td>
+              <td>{{ $item->deskripsi}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -95,9 +86,7 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $('#tabelku').DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    }).buttons().container().appendTo('#tabelku_wrapper .col-md-6:eq(0)');
+    $('#tabelku').DataTable();
   });
 </script>
 @endpush
