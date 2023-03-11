@@ -76,6 +76,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('keluarga') }}" class="nav-link {{ request()->routeIs('keluarga') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Data Keluarga
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

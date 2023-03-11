@@ -15,12 +15,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Articles</h1>
+          <h1>Keluarga</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Articles</li>
+            <li class="breadcrumb-item active">Keluarga</li>
           </ol>
         </div>
       </div>
@@ -40,24 +40,31 @@
           <thead>
             <tr>
               <th style="width: 10px">No</th>
-              <th>Judul</th>
-              <th>Gambar</th>
-              <th>Slug</th>
-              <th>Isi</th>
-              <th>Penulis</th>
-              <th>Tgl dibuat</th>
+              <th>Nama</th>
+              <th>Tempat, Tgl Lahir</th>
+              <th>No Telp</th>
+              <th>Alamat</th>
+              <th>Agama</th>
+              <th>Pekerjaan</th>
+              <th>Pendidikan</th>
+              <th>Jenis Kelamin</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($data as $item)
+            @php
+            $i = 1;
+            @endphp
+            @foreach ($families as $item)
             <tr>
-              <td>{{ $item->id_artikel}}</td>
-              <td>{{ $item->judul}}</td>
-              <td><img src="{{ $item->gambar}}" class="img-thumb"></td>
-              <td>{{ $item->slug}}</td>
-              <td>{{ $item->isi}}</td>
-              <td>{{ $item->penulis}}</td>
-              <td>{{ $item->created_at}}</td>
+              <td>{{ $i++ }}</td>
+              <td>{{ $item->nama}}</td>
+              <td>{{ $item->tempat_lahir}}, {{$item->tanggal_lahir}}</td>
+              <td>{{ $item->phone}}</td>
+              <td>{{ $item->alamat}}</td>
+              <td>{{ $item->agama}}</td>
+              <td>{{ $item->pekerjaan}}</td>
+              <td>{{ $item->pendidikan}}</td>
+              <td>{{ $item->jenis_kelamin == 'L' ? 'Laki-Laki': 'Perempuan'}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -88,7 +95,9 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $('#tabelku').DataTable();
+    $('#tabelku').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+    }).buttons().container().appendTo('#tabelku_wrapper .col-md-6:eq(0)');
   });
 </script>
 @endpush

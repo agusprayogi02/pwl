@@ -17,11 +17,12 @@ class ArtikelFactory extends Factory
     public function definition()
     {
         return [
-            'judul' => fake()->title(),
+            'judul' => fake()->sentence(3),
             'slug' => fake()->slug(2),
-            'gambar' => fake()->image(),
+            'gambar' => fake()->imageUrl(240, 180, 'news', true),
             'isi' => fake()->paragraph(1),
             'penulis' => fake()->firstName(),
+            'created_at' => fake()->dateTimeBetween('-1 years', 'now'),
         ];
     }
 }
