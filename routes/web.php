@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\HobiController;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KuliahController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 
 Route::pattern('id', '[0-9]+');
 Route::pattern('uuid', '[0-9a-fA-F]+');
@@ -22,15 +24,6 @@ Route::pattern('uuid', '[0-9a-fA-F]+');
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [DashboardController::class, 'index'])->name('home');
-Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
-Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
-
-Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
-Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
-Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
-Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
 
 
 // Route::get('/', [PageController::class, 'index']);
@@ -68,3 +61,18 @@ Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
 // Route::resource('/contact-us', ContactUsController::class)->only([
 //     'index', 'store'
 // ]);
+
+Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout']);
+// Route::post('/login', [LoginController::class, 'login']);
+
+Route::group(['middleware' => 'auth'], function () {
+  Route::get('/', [DashboardController::class, 'index'])->name('home');
+  Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
+  Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
+
+  Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
+  Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
+  Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
+  Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
+});
