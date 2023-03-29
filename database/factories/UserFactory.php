@@ -20,6 +20,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'username' => fake()->userName(),
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
