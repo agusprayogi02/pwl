@@ -7,6 +7,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\HobiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KuliahController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -75,4 +76,5 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
   Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
   Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
+  Route::resource('/mahasiswa', MahasiswaController::class);
 });

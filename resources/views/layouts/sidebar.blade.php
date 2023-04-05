@@ -92,6 +92,15 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('/mahasiswa') }}" class="nav-link {{ request()->routeIs('mahasiswa') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-laptop-code"></i>
+            <p>
+              Mahasiswa
+              <p>
+          </a>
+        </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
