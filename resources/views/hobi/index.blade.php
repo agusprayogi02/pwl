@@ -10,6 +10,9 @@
 @section('content')
 <div class="card">
   <!-- /.card-header -->
+  <div class="card-header">
+    <a href="{{ url('hobi/create') }}" class="btn btn-outline-success">Tambah</a>
+  </div>
   <div class="card-body">
     <table id="tabelku" class="table table-bordered">
       <thead>
@@ -17,6 +20,7 @@
           <th style="width: 10px">No</th>
           <th>Hobi</th>
           <th>Deskripsi</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +32,16 @@
           <td>{{ $i++ }}</td>
           <td>{{ $item->nama}}</td>
           <td>{{ $item->deskripsi}}</td>
+          <td>
+            <!-- Bikin tombol edit dan delete -->
+            <a href="{{ url('/hobi/'. $item->id_hobi.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
+
+            <form method="POST" action="{{ url('/hobi/'.$item->id_hobi) }}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger">hapus</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>

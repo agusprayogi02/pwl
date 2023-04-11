@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 
   Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
-  Route::get('/hobi', [HobiController::class, 'index'])->name('hobi');
+  Route::resource('/hobi', HobiController::class)->name('index', 'hobi');
   Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
   Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
   Route::resource('/mahasiswa', MahasiswaController::class);
