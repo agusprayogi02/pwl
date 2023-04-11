@@ -10,7 +10,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">List Mata Kuliah</h3>
+    <a href="{{ url('matkul/create') }}" class="btn btn-outline-success">Tambah</a>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
@@ -23,6 +23,7 @@
           <th>Semester</th>
           <th>Dosen Pengajar</th>
           <th>Deskripsi</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,15 @@
           <td>{{ $item->semester}}</td>
           <td>{{ $item->dosen}}</td>
           <td>{{ $item->deskripsi}}</td>
+          <td>
+            <!-- Bikin tombol edit dan delete -->
+            <a href="{{ url('/matkul/'. $item->kode_matkul.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
+            <form method="POST" action="{{ url('/matkul/'.$item->kode_matkul) }}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger">hapus</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
