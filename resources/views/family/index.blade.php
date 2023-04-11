@@ -11,7 +11,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">List Keluarga</h3>
+    <a href="{{ url('keluarga/create') }}" class="btn btn-outline-success">Tambah</a>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
@@ -27,6 +27,7 @@
           <th>Pekerjaan</th>
           <th>Pendidikan</th>
           <th>Jenis Kelamin</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +45,15 @@
           <td>{{ $item->pekerjaan}}</td>
           <td>{{ $item->pendidikan}}</td>
           <td>{{ $item->jenis_kelamin == 'L' ? 'Laki-Laki': 'Perempuan'}}</td>
+          <td>
+            <!-- Bikin tombol edit dan delete -->
+            <a href="{{ url('/keluarga/'. $item->id_family.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
+            <form method="POST" action="{{ url('/keluarga/'.$item->id_family) }}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger">hapus</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
@@ -71,7 +81,7 @@
 <script>
   $(function () {
     $('#tabelku').DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true
     }).buttons().container().appendTo('#tabelku_wrapper .col-md-6:eq(0)');
   });
 </script>

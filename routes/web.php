@@ -74,7 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
   Route::resource('/hobi', HobiController::class)->name('index', 'hobi');
-  Route::get('/keluarga', [FamilyController::class, 'index'])->name('keluarga');
+  Route::resource('/keluarga', FamilyController::class)->name('index', 'keluarga');
   Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul');
   Route::resource('/mahasiswa', MahasiswaController::class);
 });

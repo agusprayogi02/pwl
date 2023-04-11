@@ -21,7 +21,7 @@ class FamilyFactory extends Factory
             'alamat' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
             'tempat_lahir' => $this->faker->city,
-            'tanggal_lahir' => $this->faker->date('d-m-Y'),
+            'tanggal_lahir' => $this->faker->date('Y-m-d', 'now - 20 years'),
             'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha']),
             'pekerjaan' => $this->faker->jobTitle,
             'pendidikan' => $this->faker->randomElement(['SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'S1', 'S2', 'S3']),
