@@ -19,7 +19,8 @@ class MatkulFactory extends Factory
         return [
             'kode_matkul' => 'MT' . $this->faker->unique()->randomNumber(4),
             'nama' => $this->faker->sentence(3),
-            'deskripsi' => $this->faker->paragraph(1),
+            // 'deskripsi' => $this->faker->paragraph(1),
+            'jam' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8]),
             'sks' => $this->faker->randomElement([1, 2, 3, 4]),
             'semester' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8]),
             'dosen' => $this->faker->name,

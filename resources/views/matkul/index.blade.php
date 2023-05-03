@@ -21,8 +21,8 @@
           <th>Mata kuliah</th>
           <th>Jumlah SKS</th>
           <th>Semester</th>
+          <th>Jam</th>
           <th>Dosen Pengajar</th>
-          <th>Deskripsi</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -33,8 +33,8 @@
           <td>{{ $item->nama}}</td>
           <td>{{ $item->sks}}</td>
           <td>{{ $item->semester}}</td>
+          <td>{{ $item->jam}} Jam</td>
           <td>{{ $item->dosen}}</td>
-          <td>{{ $item->deskripsi}}</td>
           <td>
             <!-- Bikin tombol edit dan delete -->
             <a href="{{ url('/matkul/'. $item->kode_matkul.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
