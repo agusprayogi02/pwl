@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class MahasiswaController extends Controller
     public function create()
     {
         $prodis = Prodi::all();
-        return view('mahasiswa.form-mahasiswa', ["title" => "Tambah Mahasiswa", "url_form" => url('/mahasiswa'), 'prodis' => $prodis]);
+        $kelas = Kelas::all();
+        return view('mahasiswa.form-mahasiswa', ["title" => "Tambah Mahasiswa", "url_form" => url('/mahasiswa'), 'prodis' => $prodis, 'kelas' => $kelas]);
     }
 
     /**
@@ -47,21 +49,17 @@ class MahasiswaController extends Controller
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
             'id_prodi' => 'required',
+            'kelas_id' => 'required',
         ]);
 
         Mahasiswa::create($request->except('_token'));
         return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mahasiswa  $mahasiswa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mahasiswa $mahasiswa)
+    public function show($id)
     {
-        //
+        $mahasiswa = Mahasiswa::with('prodi', 'kelas')->find($id);
+        return view('mahasiswa.detail', ['mhs' => $mahasiswa, 'title' => 'Detail Mahasiswa']);
     }
 
     /**
@@ -74,7 +72,8 @@ class MahasiswaController extends Controller
     {
         $mhs = Mahasiswa::find($id);
         $prodis = Prodi::all();
-        return view('mahasiswa.form-mahasiswa', ["title" => "Edit Mahasiswa", "url_form" => url('/mahasiswa/' . $id), "mhs" => $mhs, 'prodis' => $prodis]);
+        $kelas = Kelas::all();
+        return view('mahasiswa.form-mahasiswa', ["title" => "Edit Mahasiswa", "url_form" => url('/mahasiswa/' . $id), "mhs" => $mhs, 'prodis' => $prodis, 'kelas' => $kelas]);
     }
 
     /**
@@ -95,6 +94,7 @@ class MahasiswaController extends Controller
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
             'id_prodi' => 'required',
+            'kelas_id' => 'required',
         ]);
 
         Mahasiswa::where('id', $id)->update($request->except('_token', '_method'));

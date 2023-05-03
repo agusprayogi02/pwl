@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FamilySeeder::class,
             MatkulSeeder::class,
             ProdiSeeder::class,
+            KelasSeeder::class,
         ]);
 
         \App\Models\User::factory(1)->create();

@@ -77,7 +77,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('keluarga') }}" class="nav-link {{ request()->routeIs('keluarga') ? 'active' : '' }}">
+          <a href="{{ route('keluarga.index') }}"
+            class="nav-link {{ request()->routeIs('keluarga.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Data Keluarga
@@ -85,7 +86,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('matkul') }}" class="nav-link {{ request()->routeIs('matkul') ? 'active' : '' }}">
+          <a href="{{ route('matkul.index') }}" class="nav-link {{ request()->routeIs('matkul.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-laptop-code"></i>
             <p>
               Mata Kuliah
@@ -93,14 +94,14 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/mahasiswa') }}" class="nav-link {{ request()->routeIs('mahasiswa') ? 'active' : '' }}">
+          <a href="{{ route('mahasiswa.index') }}"
+            class="nav-link {{ request()->routeIs('mahasiswa.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-laptop-code"></i>
             <p>
               Mahasiswa
-              <p>
+            </p>
           </a>
         </li>
-
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

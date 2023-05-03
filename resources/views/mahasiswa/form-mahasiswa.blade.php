@@ -77,6 +77,20 @@
         @enderror
       </div>
       <div class="form-group">
+        <label for="kelas_id">Kelas</label>
+        <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id" id="kelas_id">
+          <option value="">Pilih Kelas</option>
+          @foreach ($kelas as $k)
+          <option value="{{$k->id}}" {{(isset($mhs) && $mhs->kelas_id ==
+            $k->id)?'selected':''}}>{{$k->nama}}
+          </option>
+          @endforeach
+        </select>
+        @error('kelas_id')
+        <span class="error invalid-feedback">{{$message}}</span>
+        @enderror
+      </div>
+      <div class="form-group">
         <label for="hp">No. HP</label>
         <input type="text" class="form-control @error('hp') is-invalid @enderror" name="hp"
           value="{{(isset($mhs))?$mhs->hp:old('hp') }}" placeholder="Masukkan No. HP" id="hp">
