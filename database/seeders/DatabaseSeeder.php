@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ArtikelSeeder::class,
             FamilySeeder::class,
             MatkulSeeder::class,
+            ProdiSeeder::class,
         ]);
 
         \App\Models\User::factory(1)->create();

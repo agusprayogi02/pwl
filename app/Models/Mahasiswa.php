@@ -17,5 +17,11 @@ class Mahasiswa extends Model
         'tanggal_lahir',
         'alamat',
         'hp',
+        'id_prodi'
     ];
+
+    public function prodi()
+    {
+        return $this->hasOne(Prodi::class, 'prodi_id', 'id_prodi');
+    }
 }

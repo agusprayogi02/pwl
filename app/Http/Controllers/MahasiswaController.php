@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -25,7 +26,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.form-mahasiswa', ["title" => "Tambah Mahasiswa", "url_form" => url('/mahasiswa'),]);
+        $prodis = Prodi::all();
+        return view('mahasiswa.form-mahasiswa', ["title" => "Tambah Mahasiswa", "url_form" => url('/mahasiswa'), 'prodis' => $prodis]);
     }
 
     /**
@@ -44,6 +46,7 @@ class MahasiswaController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
+            'id_prodi' => 'required',
         ]);
 
         Mahasiswa::create($request->except('_token'));
@@ -70,7 +73,8 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         $mhs = Mahasiswa::find($id);
-        return view('mahasiswa.form-mahasiswa', ["title" => "Edit Mahasiswa", "url_form" => url('/mahasiswa/' . $id), "mhs" => $mhs]);
+        $prodis = Prodi::all();
+        return view('mahasiswa.form-mahasiswa', ["title" => "Edit Mahasiswa", "url_form" => url('/mahasiswa/' . $id), "mhs" => $mhs, 'prodis' => $prodis]);
     }
 
     /**
@@ -90,6 +94,7 @@ class MahasiswaController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
+            'id_prodi' => 'required',
         ]);
 
         Mahasiswa::where('id', $id)->update($request->except('_token', '_method'));
