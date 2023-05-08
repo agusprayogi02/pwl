@@ -23,7 +23,7 @@
     <h2 class="text-center mt-3 mb-5 text-uppercase">Prodi {{$mhs->prodi->nama}}-Politeknik Negeri Malang</h1>
     <h1 class="text-center mt-3 mb-5 text-uppercase">Kartu hasil studi (KHS)</h1>
     <h5 class=""><strong>Nim:</strong> {{$mhs->nim}}</h5>
-    <h5 class=""><strong>Nama:</strong> {{$mhs->nama}}</h5>
+    <h5 class="text-capitalize"><strong>Nama:</strong> {{$mhs->nama}}</h5>
     <h5 class=""><strong>Kelas:</strong> {{$mhs->kelas->nama}}</h5>
     <br>
     <table class="table table-bordered table-striped">
