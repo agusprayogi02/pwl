@@ -8,6 +8,7 @@ use App\Http\Controllers\HobiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KuliahController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MahasiswaMataKuliahController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -77,4 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('/keluarga', FamilyController::class)->names('keluarga');
   Route::resource('/matkul', MatkulController::class)->names('matkul');
   Route::resource('/mahasiswa', MahasiswaController::class)->names('mahasiswa');
+  Route::get('/mahasiswa/nilai/{nim}', [MahasiswaController::class, 'nilai'])->name('mahasiswa_matakuliah.nilai');
+  Route::get('/mahasiswa/nilai/show/{nim}', [MahasiswaController::class, 'show_nilai'])->name('mahasiswa_matakuliah.show');
+  Route::post('/mahasiswa/nilai/create/{nim}', [MahasiswaController::class, 'create_nilai'])->name('mahasiswa_matakuliah.create');
 });

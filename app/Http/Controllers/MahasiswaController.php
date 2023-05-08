@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use App\Models\MahasiswaMataKuliah;
+use App\Models\Matkul;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class   MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -111,5 +113,35 @@ class MahasiswaController extends Controller
     {
         Mahasiswa::where('id', $id)->delete();
         return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Dihapus!');
+    }
+
+    public function nilai($nim)
+    {
+        $mhs = Mahasiswa::with('prodi', 'kelas')->where('nim', $nim)->first();
+        $nilai = MahasiswaMataKuliah::with('matkul')->where('mahasiswa_id', $mhs->id)->get();
+        return view('mahasiswa.nilai', ['mhs' => $mhs, "title" => "Nilai Mahasiswa", 'nilai' => $nilai]);
+    }
+
+    public function show_nilai($nim)
+    {
+        $mhs = Mahasiswa::with('prodi', 'kelas')->where('nim', $nim)->first();
+        $matkul = Matkul::all();
+        return view('mahasiswa.form-nilai', ['mhs' => $mhs, "matkul" => $matkul, "title" => "Tambah Nilai Mahasiswa"]);
+    }
+
+    public function create_nilai(Request $request, $nim)
+    {
+        $request->validate([
+            'kode_matkul' => 'required',
+            'nilai' => 'required|string|min:1|max:2',
+        ]);
+
+        $mhs = Mahasiswa::where('nim', $nim)->first();
+        $mhs = MahasiswaMataKuliah::create([
+            'mahasiswa_id' => $mhs->id,
+            'kode_matkul' => $request->kode_matkul,
+            'nilai' => $request->nilai,
+        ]);
+        return redirect('/mahasiswa')->with('status', 'Data Nilai Mahasiswa Berhasil Ditambahkan!');
     }
 }

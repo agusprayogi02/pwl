@@ -18,4 +18,9 @@ class Matkul extends Model
         'semester',
         'dosen',
     ];
+
+    public function mahasiswa_matakuliah()
+    {
+        return $this->hasMany(MahasiswaMatakuliah::class, 'kode_matkul', 'kode_matkul');
+    }
 }
