@@ -25,7 +25,7 @@
           <th>Slug</th>
           <th>Isi</th>
           <th>Penulis</th>
-          <th>Tgl dibuat</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -33,11 +33,19 @@
         <tr>
           <td>{{ $item->id_artikel}}</td>
           <td>{{ $item->judul}}</td>
-          <td><img src="{{ $item->gambar}}" class="img-thumb"></td>
+          <td><img width="150px" src="{{ asset('storage/'. $item->gambar)}}" class="img-thumb" /></td>
           <td>{{ $item->slug}}</td>
           <td>{{ $item->isi}}</td>
           <td>{{ $item->penulis}}</td>
-          <td>{{ $item->created_at}}</td>
+          <td>
+            <form action="{{ route('articles.destroy', $item->id_artikel) }}" method="post">
+              <a href="{{ route('articles.edit', $item->id_artikel) }}" class="btn btn-warning">Edit</a>
+              @csrf
+              @method('delete')
+              <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Are you sure to delete this data?')">Delete</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>

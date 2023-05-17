@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artikel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -36,8 +37,8 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('gambar')) {
-            $image_name = $request->file('gambar')->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
         }
         Artikel::create([
             'judul' => $request->judul,
@@ -46,16 +47,16 @@ class ArticleController extends Controller
             'isi' => $request->isi,
             'penulis' => $request->penulis,
         ]);
-        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan');
+        return redirect()->route('articles.index')->with('success', 'Artikel berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Artikel  $artikel
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Artikel $artikel)
+    public function show(int $id)
     {
         //
     }
@@ -63,33 +64,48 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Artikel  $artikel
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Artikel $artikel)
+    public function edit($id)
     {
-        //
+        return view('artikel.edit', ['article' => Artikel::where('id_artikel', $id)->first(), 'title' => "Edit Artikel"]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Artikel  $artikel
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artikel $artikel)
+    public function update(Request $request, int $id)
     {
-        //
+        $artikel = Artikel::where('id_artikel', $id)->first();
+        if ($request->hasFile('gambar')) {
+            if ($artikel->gambar && file_exists(storage_path('app/public/' . $artikel->gambar))) {
+                Storage::delete('public/' . $artikel->gambar);
+            }
+            $image_name = $request->file('gambar')->store('images', 'public');
+        }
+
+        Artikel::where('id_artikel', $id)->update([
+            'judul' => $request->judul,
+            'slug' => $request->slug,
+            'isi' => $request->isi,
+            'penulis' => $request->penulis,
+            'gambar' => $image_name ?? $artikel->gambar,
+        ]);
+        return redirect()->route('articles.index')->with('success', 'Artikel berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Artikel  $artikel
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artikel $artikel)
+    public function destroy(int $id)
     {
         //
     }
