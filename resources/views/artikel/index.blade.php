@@ -11,8 +11,11 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">List Articles</h3>
-    <a href="{{ route('articles.create') }}" class="btn btn-success float-right">Add New Article</a>
+    <a href="{{ route('articles.create') }}" class="btn btn-success">
+      <i class="fas fa-plus"></i> New Article
+    </a>
+    <a href="{{ route('articles.cetak_pdf') }}" class="btn btn-primary float-right"><i class="fas fa-save"></i> Cetak
+      PDF</a>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
@@ -31,7 +34,7 @@
       <tbody>
         @foreach ($data as $item)
         <tr>
-          <td>{{ $item->id_artikel}}</td>
+          <td>{{ $loop->iteration }}</td>
           <td>{{ $item->judul}}</td>
           <td><img width="150px" src="{{ asset('storage/'. $item->gambar)}}" class="img-thumb" /></td>
           <td>{{ $item->slug}}</td>

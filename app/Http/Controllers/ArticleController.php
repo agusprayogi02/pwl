@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class ArticleController extends Controller
 {
@@ -56,9 +57,8 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($id)
     {
-        //
     }
 
     /**
@@ -107,6 +107,14 @@ class ArticleController extends Controller
      */
     public function destroy(int $id)
     {
-        //
+        Artikel::where('id_artikel', $id)->delete();
+        return redirect()->route('articles.index')->with('success', 'Artikel berhasil dihapus');
+    }
+
+    public function cetak_pdf()
+    {
+        $articles = Artikel::all();
+        $pdf = PDF::loadView('artikel.articles_pdf', ['articles' => $articles]);
+        return $pdf->stream();
     }
 }

@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
   Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 
+  Route::get('/articles/cetak_pdf', [ArticleController::class, 'cetak_pdf'])->name('articles.cetak_pdf');
   Route::resource('/articles', ArticleController::class)->names('articles');
   Route::resource('/hobi', HobiController::class)->name('index', 'hobi');
   Route::resource('/keluarga', FamilyController::class)->names('keluarga');
