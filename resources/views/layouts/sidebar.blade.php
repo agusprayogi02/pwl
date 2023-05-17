@@ -61,7 +61,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('articles') }}" class="nav-link {{ request()->routeIs('articles') ? 'active' : '' }}">
+          <a href="{{ route('articles.index') }}"
+            class="nav-link {{ request()->routeIs('articles.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-list"></i>
             <p>
               List Articles

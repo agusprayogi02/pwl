@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FamilyController;
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/profile/{nama}', [ProfileController::class, 'index'])->name('profile');
   Route::get('/kuliah', [KuliahController::class, 'index'])->name('kuliah');
 
-  Route::get('/articles', [ArtikelController::class, 'index'])->name('articles');
+  Route::resource('/articles', ArticleController::class)->names('articles');
   Route::resource('/hobi', HobiController::class)->name('index', 'hobi');
   Route::resource('/keluarga', FamilyController::class)->names('keluarga');
   Route::resource('/matkul', MatkulController::class)->names('matkul');

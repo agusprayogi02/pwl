@@ -12,6 +12,7 @@
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">List Articles</h3>
+    <a href="{{ route('articles.create') }}" class="btn btn-success float-right">Add New Article</a>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
