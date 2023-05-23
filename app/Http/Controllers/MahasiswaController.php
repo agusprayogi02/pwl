@@ -9,6 +9,7 @@ use App\Models\Matkul;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class   MahasiswaController extends Controller
 {
@@ -140,7 +141,7 @@ class   MahasiswaController extends Controller
     {
         $mhs = Mahasiswa::with('prodi', 'kelas')->where('nim', $nim)->first();
         $nilai = MahasiswaMataKuliah::with('matkul')->where('mahasiswa_id', $mhs->id)->get();
-        return view('mahasiswa.nilai', ['mhs' => $mhs, "title" => "Nilai Mahasiswa", 'nilai' => $nilai]);
+        return view('mahasiswa.nilai', ['mhs' => $mhs, "title" => "Nilai Mahasiswa", 'nilai' => $nilai, 'cetak' => false]);
     }
 
     public function show_nilai($nim)
@@ -164,5 +165,13 @@ class   MahasiswaController extends Controller
             'nilai' => $request->nilai,
         ]);
         return redirect('/mahasiswa')->with('status', 'Data Nilai Mahasiswa Berhasil Ditambahkan!');
+    }
+
+    public function cetak_pdf($nim)
+    {
+        $mhs = Mahasiswa::with('prodi', 'kelas')->where('nim', $nim)->first();
+        $nilai = MahasiswaMataKuliah::with('matkul')->where('mahasiswa_id', $mhs->id)->get();
+        $pdf = PDF::loadview('mahasiswa.nilai', ['mhs' => $mhs, 'nilai' => $nilai, 'cetak' => true]);
+        return $pdf->stream();
     }
 }
