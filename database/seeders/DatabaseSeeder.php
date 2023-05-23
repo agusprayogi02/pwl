@@ -15,15 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            HobiSeeder::class,
-            ArtikelSeeder::class,
-            FamilySeeder::class,
-            MatkulSeeder::class,
-            ProdiSeeder::class,
-            KelasSeeder::class,
-        ]);
+        // $this->call([
+        //     HobiSeeder::class,
+        //     ArtikelSeeder::class,
+        //     FamilySeeder::class,
+        //     MatkulSeeder::class,
+        //     ProdiSeeder::class,
+        //     KelasSeeder::class,
+        // ]);
 
-        \App\Models\User::factory(1)->create();
+        // \App\Models\User::factory(1)->create();
+        \App\Models\Mahasiswa::factory(20)->create();
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <form action="{{$url_form}}" method="post">
+    <form action="{{$url_form}}" method="post" enctype="multipart/form-data">
       @csrf
       {!! isset($mhs)?method_field('PUT'):''!!}
       <div class="form-group">
@@ -21,6 +21,21 @@
         @error('nama')
         <span class="error invalid-feedback">{{$message}}</span>
         @enderror
+      </div>
+      <label for="file-image">Foto</label>
+      <div class="@isset($mhs->photo) row @endisset">
+        @isset($mhs->photo)
+        <img src="{{ asset('storage/'.$mhs->photo) }}" class="col-md-2 mb-2" alt="">
+        @endisset
+        <div class="custom-file mb-3 col-md">
+          <input type="file" name="image" class="custom-file-input @error('image')
+            is-invalid
+          @enderror" id="file-image" required>
+          <label class="custom-file-label" for="file-image">Choose image photo</label>
+          @error('image')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
       </div>
       <div class="form-group">
         <label for="alamat">Alamat</label>
@@ -104,3 +119,12 @@
 </div>
 
 @endsection
+
+@push('custom_js')
+<script src="{{ asset('assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js') }}"></script>
+<script>
+  $(function () {
+  bsCustomFileInput.init();
+  });
+</script>
+@endpush
