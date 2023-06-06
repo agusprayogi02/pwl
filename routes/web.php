@@ -83,4 +83,5 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/mahasiswa/nilai/show/{nim}', [MahasiswaController::class, 'show_nilai'])->name('mahasiswa_matakuliah.show');
   Route::post('/mahasiswa/nilai/create/{nim}', [MahasiswaController::class, 'create_nilai'])->name('mahasiswa_matakuliah.create');
   Route::get('/mahasiswa/nilai/{nim}/cetak_pdf', [MahasiswaController::class, 'cetak_pdf'])->name('mahasiswa_matakuliah.cetak_pdf');
+  Route::post('/mahasiswa/data', [MahasiswaController::class, 'data']);
 });

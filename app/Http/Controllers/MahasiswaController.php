@@ -10,6 +10,8 @@ use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class   MahasiswaController extends Controller
 {
@@ -20,8 +22,18 @@ class   MahasiswaController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::paginate(3);
-        return view('mahasiswa.mahasiswa', ['mhs' => $mhs, "title" => "Mahasiswa"]);
+        $prodis = Prodi::all();
+        $kelas = Kelas::all();
+        return view('mahasiswa.mahasiswa', ['title' => "Data Mahasiswa", 'prodis' => $prodis, 'kelas' => $kelas]);
+    }
+
+    public function data()
+    {
+        $data = Mahasiswa::with('kelas', 'prodi');
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     /**
@@ -44,10 +56,11 @@ class   MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'nim' => 'required|size:10|unique:mahasiswas,nim',
             'nama' => 'required|max:50',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=100,max_height=100',
+            // 'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=100,max_height=100',
             'jk' => 'required|size:1|in:L,P',
             'tempat_lahir' => 'required|max:50',
             'tanggal_lahir' => 'required|date',
@@ -57,6 +70,15 @@ class   MahasiswaController extends Controller
             'kelas_id' => 'required',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'modal_close' => false,
+                'message' => 'Data gagal ditambahkan. ' . $validator->errors()->first(),
+                'data' => $validator->errors()
+            ]);
+        }
+
         if ($request->hasFile('image')) {
             $photo = $request->file('image')->store('photos', 'public');
             $request->merge([
@@ -64,8 +86,13 @@ class   MahasiswaController extends Controller
             ]);
         }
 
-        Mahasiswa::create($request->except('_token', 'image'));
-        return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Ditambahkan!');
+        $mhs = Mahasiswa::create($request->all());
+        return response()->json([
+            'status' => ($mhs),
+            'modal_close' => false,
+            'message' => ($mhs) ? 'Data berhasil ditambahkan' : 'Data gagal ditambahkan',
+            'data' => null
+        ]);
     }
 
     public function show($id)
@@ -97,10 +124,10 @@ class   MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nim' => 'required|size:10|unique:mahasiswas,nim,' . $id,
             'nama' => 'required|max:50',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=100,max_height=100',
+            // 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=100,max_height=100',
             'jk' => 'required|size:1|in:L,P',
             'tempat_lahir' => 'required|max:50',
             'tanggal_lahir' => 'required|date',
@@ -110,19 +137,33 @@ class   MahasiswaController extends Controller
             'kelas_id' => 'required',
         ]);
 
-        $mhs = Mahasiswa::where('id', $id)->first();
-        if ($request->hasFile('image')) {
-            if ($mhs->photo && Storage::exists('public/' . $mhs->photo)) {
-                Storage::delete('public/' . $mhs->photo);
-            }
-            $photo = $request->file('image')->store('photos', 'public');
-            $request->merge([
-                'photo' => $photo
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'modal_close' => false,
+                'message' => 'Data gagal diedit. ' . $validator->errors()->first(),
+                'data' => $validator->errors()
             ]);
         }
 
-        $mhs->update($request->except('_token', '_method', 'image'));
-        return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil DiUpdate!');
+        $mhs = Mahasiswa::where('id', $id)->first();
+        // if ($request->hasFile('image')) {
+        //     if ($mhs->photo && Storage::exists('public/' . $mhs->photo)) {
+        //         Storage::delete('public/' . $mhs->photo);
+        //     }
+        //     $photo = $request->file('image')->store('photos', 'public');
+        //     $request->merge([
+        //         'photo' => $photo
+        //     ]);
+        // }
+
+        $mhs->update($request->except('_token', '_method'));
+        return response()->json([
+            'status' => ($mhs),
+            'modal_close' => $mhs,
+            'message' => ($mhs) ? 'Data berhasil diedit' : 'Data gagal diedit',
+            'data' => null
+        ]);
     }
 
     /**
@@ -134,7 +175,9 @@ class   MahasiswaController extends Controller
     public function destroy($id)
     {
         Mahasiswa::where('id', $id)->delete();
-        return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Dihapus!');
+        return response()->json([
+            'message' => 'Mahasiswa deleted successfully!'
+        ]);
     }
 
     public function nilai($nim)
